@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  iss-module-v2:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./forensic_logs:/app/forensic_logs
+      - ./spice_layer:/app/spice_layer
+      - ./memory_matrix:/app/memory_matrix:ro  # Read-only vault access
+    environment:
+      - NODE_ID=ISS_MODULE_V2
+      - CONSTITUTIONAL_ENFORCEMENT=strict
+      - PORT=8000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - iss-network
+
+networks:
+  iss-network:
+    driver: bridge
+
+volumes:
+  forensic_logs:
+  spice_layer:
+  memory_matrix:

@@ -1,0 +1,12 @@
+{
+  "tai_ns": 523091057084,           // Monotonic truth (nanoseconds)
+  "utc_iso": "2026-02-13T04:54:25", // Human display (leap-second aware)
+  "et_s": 824230534.192,            // Space time (seconds past J2000)
+  "utc_unix": 1770958465.008,       // Unix timestamp
+  "epoch_days": 9539.704,           // Days since J2000
+  "julian_date": 2461084.704,       // Julian Date
+  "pulse_id": "9bb07db0...",        // Unique pulse ID
+  "glyph_hash": "e1a39142...",      // Full forensic signature
+  "chain_hash": "07341f93...",      // Immutable chain link
+  "source_node": "CALEON_PRIME"     // Originating system
+}
