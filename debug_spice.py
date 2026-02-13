@@ -1,12 +1,12 @@
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src'))
 
 from spice_descriptor_layer import SPICEDescriptorLayer
 import json
 
 # Just initialize, don't run the demo
-layer = SPICEDescriptorLayer()
+layer = SPICEDescriptorLayer(storage_path="./data/spice_layer")
 print('File exists:', layer.descriptor_file.exists())
 
 with open(layer.descriptor_file, 'r') as f:

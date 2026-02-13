@@ -14,7 +14,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from .forensic_timekeeper import ForensicTimeKeeper, StarDatePulse
-from .spice_descriptor_layer import SPICEDescriptorLayer, SPICEDescriptor, ProcessOutcome, CapabilityLevel
+from .immutable_spice_layer import ImmutableSPICELayer, SPICEDescriptor, ProcessOutcome, CapabilityLevel
 
 class ForensicService:
     """Service for forensic timekeeping operations"""
@@ -38,10 +38,10 @@ class ForensicService:
         return self.service.get_pulse_history(limit)
 
 class SPICEService:
-    """Service for SPICE descriptor operations"""
+    """Service for SPICE descriptor operations with actual immutability"""
 
     def __init__(self):
-        self.service = SPICEDescriptorLayer()
+        self.service = ImmutableSPICELayer(storage_path="./data/spice_layer_immutable")
 
     def create_descriptor(self, data) -> SPICEDescriptor:
         """Create new SPICE descriptor"""
@@ -87,18 +87,9 @@ class SPICEService:
         return self.service.get_capability_report()
 
     def verify_integrity(self) -> bool:
-        """Verify SPICE layer integrity"""
+        """Verify SPICE layer integrity with actual immutability guarantees"""
         try:
-            # Check if index file exists and is valid
-            if not self.service.index_file.exists():
-                return False
-
-            # Check if descriptor file exists
-            if not self.service.descriptor_file.exists():
-                return False
-
-            # Basic integrity checks
-            report = self.get_capability_report()
-            return report.get("total_processes", 0) >= 0
+            integrity_report = self.service.verify_system_integrity()
+            return integrity_report["chain_integrity"]["valid"]
         except Exception:
             return False
