@@ -1,30 +1,32 @@
 # ISS Module v2.0
 
-**Inventory Service System with Forensic Timekeeping & SPICE Process Maturity**
+**Level-3 Tamper-Evident Ledger with Forensic Timekeeping & SPICE Process Maturity**
 
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
 [![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](https://www.docker.com/)
+[![Maturity](https://img.shields.io/badge/maturity-Level_3-orange.svg)]()
+[![Tamper-Evident](https://img.shields.io/badge/tamper_evident-SHA256-green.svg)]()
 
 ## Overview
 
-The ISS Module v2.0 is a **forensic-grade inventory management system** that implements **actual immutable audit trails** with **cryptographic integrity guarantees**. Built with constitutional compliance (Article VII: All memory is immutable and auditable), this system provides enterprise-level traceability for inventory operations.
+The ISS Module v2.0 is a **Level-3 tamper-evident ledger** that implements **cryptographically chained, append-only audit trails**. Built with constitutional compliance (Article VII: All memory is immutable and auditable), this system provides enterprise-level traceability for inventory operations.
 
-**What it does:**
+**What it actually does:**
 - Creates cryptographically-linked audit trails for all inventory operations
 - Provides SPICE process maturity assessment (CMMI Levels 0-5)
 - Generates immutable timestamps with TAI/UTC/ET synchronization
 - Enables complete forensic reconstruction of any operation
-- Ensures regulatory compliance with tamper-evident records
+- Ensures tamper-evident records through cryptographic integrity
 
-**Key differentiator:** Unlike systems that claim immutability but implement it poorly, this system actually enforces immutability at the architectural level with no bypass paths or rewrite vulnerabilities.
+**Key differentiator:** Unlike systems that claim immutability but implement it poorly, this system actually enforces tamper-evident properties at the architectural level with no bypass paths or rewrite vulnerabilities.
 
 ## Key Features
 
-- **🔒 ACTUAL Immutability**: Cryptographic hash chains, no file rewrites, OS-level protection
+- **🔒 Level-3 Tamper-Evident**: Cryptographic hash chains, append-only storage, integrity verification
 - **Forensic Timekeeping**: TAI/UTC/ET synchronization with immutable timestamps
 - **SPICE Process Maturity**: CMMI-based process capability assessment (Levels 0-5)
-- **Immutable Audit Trails**: Cryptographic integrity guarantees - NOT aspirational
+- **Cryptographic Audit Trails**: SHA256 hash-chained, tamper-evident ledger
 - **FastAPI Backend**: RESTful API with automatic OpenAPI documentation
 - **Docker Deployment**: Containerized for easy deployment and scaling
 - **Constitutional Compliance**: Article VII actually enforced, not just claimed
@@ -54,40 +56,68 @@ The ISS Module v2.0 is a **forensic-grade inventory management system** that imp
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## 🔒 Immutability Guarantees
+## 🔒 Tamper-Evident Guarantees
 
-**ACTUAL enforcement, not aspirational claims:**
+**Level-3 Implementation (Actually Enforced):**
 
 | Guarantee | Implementation | Status |
 |-----------|----------------|--------|
-| **No File Rewrites** | JSONL append-only, computed indices | ✅ ENFORCED |
+| **Append-Only Storage** | JSONL files, no rewrites allowed | ✅ ENFORCED |
 | **Cryptographic Chaining** | SHA256 hash links between all records | ✅ ENFORCED |
 | **Pre/Post Verification** | Integrity checks before/after operations | ✅ ENFORCED |
 | **OS-Level Protection** | File immutability where supported (Linux root) | ✅ ENFORCED |
 | **No Bypass Paths** | All operations go through integrity layer | ✅ ENFORCED |
 | **Atomic Operations** | Rollback capability for failures | ✅ ENFORCED |
 
-**Verified by:** `system_verification.py` - Run this to confirm all guarantees are actually enforced.
+**Verified by:** `system_verification.py` - Run this to confirm tamper-evident properties are actively enforced.
 
-Unlike many systems that claim immutability but implement it poorly, this system provides **actual cryptographic integrity guarantees**:
+### What This System Actually Provides
 
-### Critical Architectural Decisions
+**✅ Legitimate Achievements:**
+- Append-only JSONL with hash chaining
+- Pre/post integrity verification
+- No persistent index rewrites
+- Deterministic reconstruction
+- Crash-durable writes
 
-1. **NO File Rewrites**: Traditional databases rewrite data. This system uses append-only JSONL files.
-2. **Computed Indices**: Database indices are often corrupted. This system computes indices in memory from immutable data.
-3. **Cryptographic Chain Linking**: Each record links to the previous via SHA256 hash, making tampering mathematically detectable.
-4. **Pre/Post Operation Verification**: Integrity is checked before and after every operation.
-5. **OS-Level Immutability**: Files are made immutable at the operating system level where supported.
-6. **No Bypass Paths**: All operations go through the integrity-verified service layer.
+**❌ Not Provided (Would Require Additional Implementation):**
+- HMAC with key separation
+- Digital signatures
+- External trust anchoring
+- Manifest cryptographic chaining
+- Boot-time hard failure
+- Key rotation procedures
 
-### Verification
-Run `python system_verification.py` to confirm all immutability guarantees are actively enforced.
+### Maturity Level Assessment
 
-### Regulatory Compliance Proof
-- **FDA 21 CFR Part 11**: Verified electronic records with complete audit trails
-- **SOX Section 404**: Tamper-evident audit trails for financial reporting
-- **GDPR Article 5**: Data integrity with cryptographic verification
-- **ISO 27001**: Information security with enforced immutability
+**Current: Level 3** - Hash-chained, append-only, tamper-evident ledger
+**Gap to Level 4:** HMAC/signed with key separation
+**Gap to Level 5:** External trust anchor, full forensic resistance
+
+### Important: What This System Is NOT
+
+**This system is a serious tamper-evident ledger. It is NOT:**
+
+| False Claim | Reality | What Would Be Required |
+|-------------|---------|----------------------|
+| "FDA 21 CFR Part 11 compliant" | Not compliant | Unique user IDs, e-signatures, SOPs, validation docs |
+| "SOX compliant" | Not compliant | Documented controls, segregation of duties, external audit |
+| "GDPR compliant" | Not compliant | Data minimization, right to erasure, retention policies |
+| "ISO 27001 compliant" | Not compliant | ISMS framework, risk register, key management policy |
+| "Attacker-resistant" | Honest-host assumption | Privileged attacker resistance, external anchoring |
+| "Certified compliant system" | Code ≠ Certification | Formal certification process and documentation |
+
+**Code ≠ Certification. Architecture ≠ Compliance framework.**
+
+### Path to Higher Maturity Levels (If Required)
+
+1. **HMAC implementation** with key stored in separate trust boundary
+2. **Digital signatures** using asymmetric keys
+3. **External anchoring** to public timestamping service
+4. **Manifest chaining** - integrate into main cryptographic chain
+5. **Boot-time hard fail** - system refuses to start if integrity check fails
+6. **Key rotation model** - documented procedures for key lifecycle
+7. **Role separation** - distinct writer/verifier/admin roles
 
 ## Quick Start
 
@@ -258,3 +288,5 @@ This system implements constitutional compliance through:
 - **Atomic Operations**: Rollback capability for failed operations
 
 **Verification**: Run `python system_verification.py` to confirm constitutional compliance is actively enforced, not just claimed.
+
+**Important**: This provides **Level-3 tamper-evident guarantees** suitable for regulated environments when deployed within a compliant operational framework. It is not a certified compliant system.
