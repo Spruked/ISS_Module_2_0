@@ -7,6 +7,8 @@ Main FastAPI application for the Inventory Service System
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 import uvicorn
@@ -14,14 +16,18 @@ import os
 
 # Import services and models
 from .services import ForensicService, SPICEService
+from .dashboard_service import DashboardService
 from .models import (
     ProcessData, DescriptorResponse, AuditTrailResponse,
-    IntegrityResponse, HealthResponse
+    IntegrityResponse, HealthResponse,
+    DALSRecord, GOATRecord, TrueMarkNFTMint, NFTRecord,
+    DashboardSummary, SystemStatus, DashboardData
 )
 
 # Initialize services
 forensic_service = ForensicService()
 spice_service = SPICEService()
+dashboard_service = DashboardService()
 
 # FastAPI app
 app = FastAPI(
@@ -40,6 +46,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Startup event
 @app.on_event("startup")
@@ -226,6 +235,133 @@ async def get_vault_status():
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to check vault status: {str(e)}")
+
+# =============================================================================
+# DASHBOARD ENDPOINTS (/dashboard/*)
+# =============================================================================
+
+@app.get("/dashboard/summary", response_model=DashboardSummary)
+async def get_dashboard_summary():
+    """Get dashboard summary statistics"""
+    try:
+        return dashboard_service.get_dashboard_summary()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get dashboard summary: {str(e)}")
+
+@app.get("/dashboard/status", response_model=List[SystemStatus])
+async def get_system_statuses():
+    """Get status for all monitored systems"""
+    try:
+        return dashboard_service.get_system_statuses()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get system statuses: {str(e)}")
+
+@app.get("/dashboard/data", response_model=DashboardData)
+async def get_dashboard_data():
+    """Get complete dashboard data"""
+    try:
+        return dashboard_service.get_dashboard_data()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get dashboard data: {str(e)}")
+
+@app.get("/dashboard/activities")
+async def get_recent_activities(limit: int = Query(10, ge=1, le=100)):
+    """Get recent activities across all systems"""
+    try:
+        return dashboard_service.get_recent_activities(limit)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get recent activities: {str(e)}")
+
+# DALS Endpoints
+@app.post("/dashboard/dals/record", response_model=str)
+async def create_dals_record(record: DALSRecord):
+    """Create a new DALS record"""
+    try:
+        return dashboard_service.create_dals_record(record)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create DALS record: {str(e)}")
+
+@app.get("/dashboard/dals/records", response_model=List[DALSRecord])
+async def get_dals_records(limit: Optional[int] = Query(None, ge=1, le=1000)):
+    """Get DALS records"""
+    try:
+        return dashboard_service.get_dals_records(limit)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get DALS records: {str(e)}")
+
+# GOAT Endpoints
+@app.post("/dashboard/goat/record", response_model=str)
+async def create_goat_record(record: GOATRecord):
+    """Create a new GOAT record"""
+    try:
+        return dashboard_service.create_goat_record(record)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create GOAT record: {str(e)}")
+
+@app.get("/dashboard/goat/records", response_model=List[GOATRecord])
+async def get_goat_records(limit: Optional[int] = Query(None, ge=1, le=1000)):
+    """Get GOAT records"""
+    try:
+        return dashboard_service.get_goat_records(limit)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get GOAT records: {str(e)}")
+
+@app.put("/dashboard/goat/record/{record_id}/status")
+async def update_goat_status(record_id: str, status: str, result: Optional[Dict[str, Any]] = None):
+    """Update GOAT record status"""
+    try:
+        success = dashboard_service.update_goat_status(record_id, status, result)
+        return {"success": success, "record_id": record_id, "new_status": status}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to update GOAT status: {str(e)}")
+
+# True Mark NFT Endpoints
+@app.post("/dashboard/nft/mint", response_model=str)
+async def create_nft_mint(mint: TrueMarkNFTMint):
+    """Create a new NFT mint record"""
+    try:
+        return dashboard_service.create_nft_mint(mint)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create NFT mint: {str(e)}")
+
+@app.get("/dashboard/nft/mints", response_model=List[TrueMarkNFTMint])
+async def get_nft_mints(limit: Optional[int] = Query(None, ge=1, le=1000)):
+    """Get NFT mint records"""
+    try:
+        return dashboard_service.get_nft_mints(limit)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get NFT mints: {str(e)}")
+
+# NFT Records Endpoints
+@app.post("/dashboard/nft/record", response_model=str)
+async def create_nft_record(record: NFTRecord):
+    """Create a new NFT record with internal serial numbers"""
+    try:
+        return dashboard_service.create_nft_record(record)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create NFT record: {str(e)}")
+
+@app.get("/dashboard/nft/records", response_model=List[NFTRecord])
+async def get_nft_records(limit: Optional[int] = Query(None, ge=1, le=1000)):
+    """Get NFT records"""
+    try:
+        return dashboard_service.get_nft_records(limit)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get NFT records: {str(e)}")
+
+@app.get("/dashboard/nft/find/{serial_number}", response_model=List[NFTRecord])
+async def find_nft_by_serial(serial_number: str):
+    """Find NFT records by DALS or TrueMark serial number"""
+    try:
+        return dashboard_service.find_nft_by_serial(serial_number)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to find NFT by serial: {str(e)}")
+
+# Dashboard HTML page
+@app.get("/dashboard")
+async def get_dashboard_page():
+    """Serve the dashboard HTML page"""
+    return FileResponse("static/dashboard.html", media_type="text/html")
 
 # =============================================================================
 # MAIN EXECUTION

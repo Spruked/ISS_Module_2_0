@@ -53,3 +53,76 @@ class HealthResponse(BaseModel):
     vault_contamination: str
     constitutional_compliance: str
     timestamp: str
+
+# Dashboard Models
+class DALSRecord(BaseModel):
+    """Digital Asset Ledger System Record"""
+    record_id: str = Field(..., description="Unique DALS record identifier")
+    asset_type: str = Field(..., description="Type of digital asset")
+    asset_hash: str = Field(..., description="Cryptographic hash of the asset")
+    owner_id: str = Field(..., description="Current owner identifier")
+    transfer_history: List[Dict[str, Any]] = Field(default_factory=list, description="Transfer history")
+    metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
+    created_at: str = Field(..., description="Creation timestamp")
+    last_updated: str = Field(..., description="Last update timestamp")
+
+class GOATRecord(BaseModel):
+    """GOAT System Record"""
+    record_id: str = Field(..., description="Unique GOAT record identifier")
+    operation_type: str = Field(..., description="Type of operation")
+    status: str = Field(..., description="Current status")
+    parameters: Dict[str, Any] = Field(default_factory=dict, description="Operation parameters")
+    result: Optional[Dict[str, Any]] = Field(None, description="Operation result")
+    execution_time: Optional[float] = Field(None, description="Execution time in seconds")
+    created_at: str = Field(..., description="Creation timestamp")
+    completed_at: Optional[str] = Field(None, description="Completion timestamp")
+
+class TrueMarkNFTMint(BaseModel):
+    """True Mark NFT Minting Record"""
+    mint_id: str = Field(..., description="Unique mint identifier")
+    nft_contract: str = Field(..., description="NFT contract address")
+    token_id: str = Field(..., description="NFT token ID")
+    serial_number: str = Field(..., description="True Mark serial number")
+    metadata_uri: str = Field(..., description="IPFS or metadata URI")
+    minter_address: str = Field(..., description="Address that minted the NFT")
+    royalty_percentage: float = Field(..., ge=0.0, le=100.0, description="Royalty percentage")
+    attributes: Dict[str, Any] = Field(default_factory=dict, description="NFT attributes")
+    created_at: str = Field(..., description="Minting timestamp")
+
+class NFTRecord(BaseModel):
+    """NFT Record with Internal Serial Numbers"""
+    record_id: str = Field(..., description="Unique NFT record identifier")
+    nft_info: TrueMarkNFTMint = Field(..., description="NFT minting information")
+    dals_serial_numbers: List[str] = Field(default_factory=list, description="Associated DALS serial numbers")
+    truemark_serial_numbers: List[str] = Field(default_factory=list, description="Associated True Mark serial numbers")
+    ownership_chain: List[Dict[str, Any]] = Field(default_factory=list, description="Ownership transfer history")
+    verification_status: str = Field(..., description="Verification status")
+    last_verified: str = Field(..., description="Last verification timestamp")
+    metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata")
+
+# Dashboard Response Models
+class DashboardSummary(BaseModel):
+    """Dashboard summary statistics"""
+    total_dals_records: int
+    total_goat_records: int
+    total_nft_mints: int
+    total_nft_records: int
+    active_operations: int
+    system_health: str
+    last_updated: str
+
+class SystemStatus(BaseModel):
+    """Individual system status"""
+    system_name: str
+    status: str  # "healthy", "warning", "error"
+    record_count: int
+    last_activity: str
+    uptime_percentage: float
+    alerts: List[str] = Field(default_factory=list)
+
+class DashboardData(BaseModel):
+    """Complete dashboard data"""
+    summary: DashboardSummary
+    system_statuses: List[SystemStatus]
+    recent_activities: List[Dict[str, Any]]
+    alerts: List[Dict[str, Any]]

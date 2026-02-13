@@ -150,6 +150,35 @@ docker-compose up
 
 Once running, visit `http://localhost:8000/docs` for interactive API documentation.
 
+### Dashboard
+
+The system includes a comprehensive dashboard for monitoring DALS, GOAT, True Mark NFT Mint, and NFT records:
+
+- **Live Dashboard**: `http://localhost:8000/dashboard` - Interactive monitoring interface
+- **System Metrics**: Real-time statistics for all monitored systems
+- **NFT Serial Lookup**: Search NFTs by DALS or TrueMark serial numbers
+- **Activity Monitoring**: Recent activities across all systems
+- **Health Status**: System health indicators and alerts
+
+#### Generate Sample Data
+
+```bash
+# Generate sample data for testing the dashboard
+python generate_dashboard_data.py
+```
+
+#### Dashboard API Endpoints
+
+- `GET /dashboard/data` - Complete dashboard data
+- `GET /dashboard/summary` - System summary statistics
+- `GET /dashboard/status` - Individual system statuses
+- `GET /dashboard/activities` - Recent activities
+- `POST /dashboard/dals/record` - Create DALS record
+- `POST /dashboard/goat/record` - Create GOAT record
+- `POST /dashboard/nft/mint` - Create NFT mint record
+- `POST /dashboard/nft/record` - Create NFT record
+- `GET /dashboard/nft/find/{serial}` - Find NFTs by serial number
+
 ## Project Structure
 
 ```
