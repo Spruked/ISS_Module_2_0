@@ -1,25 +1,82 @@
-# ISS Module v2.0
+# ISS Module v2.0 - DALS Core Architecture
 
-**Level-3 Tamper-Evident Ledger with Forensic Timekeeping & SPICE Process Maturity**
+**Level-3 Tamper-Evident Ledger - Foundation for Digital Asset Ledger System (DALS)**
 
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
 [![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](https://www.docker.com/)
 [![Maturity](https://img.shields.io/badge/maturity-Level_3-orange.svg)]()
 [![Tamper-Evident](https://img.shields.io/badge/tamper_evident-SHA256-green.svg)]()
+[![DALS Core](https://img.shields.io/badge/DALS-Core_Architecture-blue.svg)]()
 
 ## Overview
 
-The ISS Module v2.0 is a **Level-3 tamper-evident ledger** that implements **cryptographically chained, append-only audit trails**. Built with constitutional compliance (Article VII: All memory is immutable and auditable), this system provides enterprise-level traceability for inventory operations.
+The ISS Module v2.0 is the **core architecture for the Digital Asset Ledger System (DALS)**, implementing a **Level-3 tamper-evident ledger** that provides enterprise-level traceability for all digital asset operations.
+
+**This Level-3 architecture is mandatory for all DALS subsystems**, replacing previous implementations with guaranteed tamper-evident properties.
 
 **What it actually does:**
-- Creates cryptographically-linked audit trails for all inventory operations
+- Creates cryptographically-linked audit trails for all DALS operations
 - Provides SPICE process maturity assessment (CMMI Levels 0-5)
 - Generates immutable timestamps with TAI/UTC/ET synchronization
 - Enables complete forensic reconstruction of any operation
 - Ensures tamper-evident records through cryptographic integrity
 
 **Key differentiator:** Unlike systems that claim immutability but implement it poorly, this system actually enforces tamper-evident properties at the architectural level with no bypass paths or rewrite vulnerabilities.
+
+## DALS Integration
+
+**This ISS Module v2.0 becomes the foundation of DALS:**
+
+| Component | Integration | Compliance Level |
+|-----------|-------------|------------------|
+| **DALS Core** | Direct replacement for current ISS module | Level-3 Mandatory |
+| **All Subsystems** | Must implement Level-3 tamper-evident guarantees | Level-3 Mandatory |
+| **GOAT Operations** | Logged to tamper-evident ledger | Level-3 Enforced |
+| **True Mark NFT** | Minting records with serial traceability | Level-3 Enforced |
+| **NFT Records** | Internal DALS/TrueMark serial references | Level-3 Enforced |
+| **Dashboard** | Real-time monitoring of all DALS components | Level-3 Verified |
+
+**All DALS subsystems must comply with Level-3 tamper-evident architecture.**
+
+## DALS Subsystem Compliance Requirements
+
+**All DALS components must implement Level-3 tamper-evident guarantees:**
+
+### 🔒 Mandatory Level-3 Implementation
+
+| Subsystem | Requirement | Enforcement |
+|-----------|-------------|-------------|
+| **Asset Ledger** | SHA256 hash-chained append-only records | Mandatory |
+| **GOAT Operations** | All operations logged to tamper-evident chain | Mandatory |
+| **True Mark NFT Mint** | Minting records with cryptographic integrity | Mandatory |
+| **NFT Records** | Internal serial number references verified | Mandatory |
+| **Transfer Operations** | Atomic operations with integrity checks | Mandatory |
+| **Audit Systems** | Pre/post verification on all changes | Mandatory |
+
+### 📋 Implementation Checklist for DALS Subsystems
+
+**Every DALS subsystem must provide:**
+
+- [ ] **Append-Only Storage**: No file rewrites, only append operations
+- [ ] **Cryptographic Chaining**: SHA256 hash links between all records
+- [ ] **Pre/Post Verification**: Integrity checks before/after operations
+- [ ] **Atomic Operations**: Rollback capability for failures
+- [ ] **No Bypass Paths**: All operations through integrity layer
+- [ ] **Tamper-Evident Logging**: All activities logged to SPICE layer
+- [ ] **Serial Number Integration**: Cross-references to DALS/TrueMark serials
+- [ ] **Dashboard Integration**: Real-time monitoring and health reporting
+
+### 🔄 Migration Path
+
+**Current ISS Module → DALS Core Architecture:**
+
+1. **Phase 1**: Deploy Level-3 tamper-evident ledger as DALS core
+2. **Phase 2**: Migrate all subsystems to Level-3 compliance
+3. **Phase 3**: Decommission non-compliant legacy components
+4. **Phase 4**: Full DALS ecosystem operating on Level-3 guarantees
+
+**All subsystems must pass Level-3 verification before integration.**
 
 ## Key Features
 
@@ -182,51 +239,74 @@ python generate_dashboard_data.py
 ## Project Structure
 
 ```
-ISS_Module_2_0/
-├── src/                    # Source code
-│   ├── main.py            # FastAPI application
-│   ├── models.py          # Pydantic models
-│   ├── services.py        # Business logic services
-│   ├── immutable_spice_layer.py  # ACTUAL immutable SPICE layer
-│   ├── forensic_timekeeper.py    # Forensic timekeeping
+DALS_Core_Architecture/
+├── src/                    # DALS Core Implementation
+│   ├── main.py            # FastAPI application (DALS API)
+│   ├── models.py          # Pydantic models (DALS data structures)
+│   ├── services.py        # Business logic services (DALS operations)
+│   ├── immutable_spice_layer.py  # Level-3 tamper-evident core
+│   ├── dashboard_service.py      # DALS monitoring & control
+│   ├── forensic_timekeeper.py    # Immutable timestamping
 │   ├── spice_descriptor_layer.py # Legacy layer (deprecated)
 │   └── __init__.py        # Package initialization
-├── tests/                 # Test files and validation
-├── docs/                  # Documentation
-├── examples/              # Usage examples
-├── data/                  # Data files and SPICE chains
-├── logs/                  # Forensic audit logs
-├── system_verification.py # System integrity verification
-├── Dockerfile             # Docker image
-├── docker-compose.yml     # Docker services
-├── requirements.txt       # Python dependencies
-├── .gitignore            # Git ignore rules
-└── README.md             # This file
+├── data/                  # DALS persistent data
+│   ├── spice_layer/       # Tamper-evident chain storage
+│   └── dashboard/         # System monitoring data
+├── logs/                  # DALS audit logs
+├── static/                # DALS dashboard interface
+├── tests/                 # DALS compliance tests
+├── docs/                  # DALS documentation
+├── examples/              # DALS usage examples
+├── system_verification.py # Level-3 compliance verification
+├── generate_dashboard_data.py # DALS test data generation
+├── Dockerfile             # DALS containerization
+├── docker-compose.yml     # DALS service orchestration
+├── requirements.txt       # DALS dependencies
+├── .gitignore            # DALS ignore rules
+└── README.md             # This DALS core documentation
 ```
 
-## API Endpoints
+## DALS Core API Endpoints
 
-### Health & System Management
-- `GET /health` - System health check with integrity verification
-- `GET /audit/verify/integrity` - Full system integrity verification
+### System Management & Compliance
+- `GET /health` - DALS system health with Level-3 verification
+- `GET /audit/verify/integrity` - Full DALS integrity verification
 
-### Forensic Time Operations
-- `GET /time/pulse` - Generate new forensic time pulse
-- `GET /time/verify` - Verify time chain integrity
-- `GET /time/history` - Retrieve time pulse history
+### Forensic Time Operations (DALS Core)
+- `GET /time/pulse` - Generate DALS forensic time pulse
+- `GET /time/verify` - Verify DALS time chain integrity
+- `GET /time/history` - DALS time pulse history
 
-### SPICE Process Management
-- `POST /spice/descriptor` - Create process maturity descriptor
-- `GET /spice/descriptor/{id}` - Retrieve specific descriptor
-- `GET /spice/find/glyph/{hash}` - Find processes by glyph reference
-- `GET /spice/find/apriori/{id}` - Find processes by input reference
-- `GET /spice/capability/report` - Generate maturity assessment report
+### SPICE Process Management (DALS Core)
+- `POST /spice/descriptor` - Create DALS process maturity descriptor
+- `GET /spice/descriptor/{id}` - Retrieve DALS process descriptor
+- `GET /spice/find/glyph/{hash}` - Find DALS processes by glyph reference
+- `GET /spice/find/apriori/{id}` - Find DALS processes by input reference
+- `GET /spice/capability/report` - DALS maturity assessment report
 
-### Audit Reconstruction
-- `GET /audit/trail/{descriptor_id}` - Full audit trail reconstruction
+### DALS Subsystem Monitoring
+- `GET /dashboard` - DALS monitoring dashboard (HTML)
+- `GET /dashboard/summary` - DALS subsystem statistics
+- `GET /dashboard/status` - Individual DALS component statuses
+- `GET /dashboard/data` - Complete DALS monitoring data
+- `GET /dashboard/activities` - Recent DALS activities
 
-### Vault References (Read-Only)
-- `GET /vault/status` - Check vault reference integrity
+### DALS Record Management
+- `POST /dashboard/dals/record` - Create DALS asset record
+- `GET /dashboard/dals/records` - Get DALS asset records
+- `POST /dashboard/goat/record` - Create DALS GOAT operation record
+- `GET /dashboard/goat/records` - Get DALS GOAT operation records
+- `POST /dashboard/nft/mint` - Create DALS True Mark NFT mint
+- `GET /dashboard/nft/mints` - Get DALS NFT mint records
+- `POST /dashboard/nft/record` - Create DALS NFT record with serial refs
+- `GET /dashboard/nft/records` - Get DALS NFT records
+- `GET /dashboard/nft/find/{serial}` - Find DALS NFTs by serial number
+
+### Audit Reconstruction (DALS Core)
+- `GET /audit/trail/{descriptor_id}` - Full DALS audit trail reconstruction
+
+### Vault References (DALS Core)
+- `GET /vault/status` - DALS vault reference integrity
 
 ## Configuration
 

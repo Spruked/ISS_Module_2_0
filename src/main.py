@@ -31,8 +31,8 @@ dashboard_service = DashboardService()
 
 # FastAPI app
 app = FastAPI(
-    title="ISS Module v2 - Inventory Service System",
-    description="Forensic-grade inventory management with SPICE Descriptor Layer",
+    title="DALS Core Architecture - Level-3 Tamper-Evident Ledger",
+    description="Digital Asset Ledger System (DALS) core implementation with Level-3 tamper-evident guarantees. All DALS subsystems must comply with this architecture.",
     version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
@@ -53,26 +53,27 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Startup event
 @app.on_event("startup")
 async def startup_event():
-    """Initialize services and verify constitutional compliance"""
-    print("🔄 Initializing ISS Module v2...")
+    """Initialize DALS core architecture and verify Level-3 compliance"""
+    print("🔄 Initializing DALS Core Architecture - Level-3 Tamper-Evident Ledger...")
 
     # Verify forensic chain integrity
     chain_status = forensic_service.verify_chain_integrity()
     if chain_status["status"] == "CLEAN":
-        print("✅ Forensic chain integrity: CLEAN")
+        print("✅ DALS forensic chain integrity: CLEAN")
     else:
-        print(f"⚠️  Forensic chain integrity: {chain_status['status']}")
+        print(f"⚠️  DALS forensic chain integrity: {chain_status['status']}")
 
     # Verify SPICE layer integrity
     spice_integrity = spice_service.verify_integrity()
     if spice_integrity:
-        print("✅ SPICE layer integrity: VERIFIED")
+        print("✅ DALS SPICE layer integrity: VERIFIED")
     else:
-        print("⚠️  SPICE layer integrity: ISSUES DETECTED")
+        print("⚠️  DALS SPICE layer integrity: ISSUES DETECTED")
 
-    print("✅ ISS Module v2 initialized successfully")
-    print("⚖️  Constitutional Article VII compliance: VERIFIED")
-    print("🔒 Vault contamination prevention: ACTIVE")
+    print("✅ DALS Core Architecture initialized successfully")
+    print("⚖️  Level-3 tamper-evident compliance: VERIFIED")
+    print("🔒 DALS vault contamination prevention: ACTIVE")
+    print("🏛️  All DALS subsystems must implement Level-3 guarantees")
 
 # Health check endpoint
 @app.get("/health", response_model=HealthResponse)
@@ -369,9 +370,10 @@ async def get_dashboard_page():
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
-    print(f"🚀 Starting ISS Module v2 on port {port}")
-    print("📋 API Documentation: http://localhost:8000/docs")
-    print("🔄 ReDoc Documentation: http://localhost:8000/redoc")
+    print(f"🚀 Starting DALS Core Architecture on port {port}")
+    print("📋 DALS API Documentation: http://localhost:8000/docs")
+    print("🔄 DALS Dashboard: http://localhost:8000/dashboard")
+    print("🏛️  Level-3 Tamper-Evident Ledger Active")
 
     uvicorn.run(
         "main:app",
