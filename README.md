@@ -1,6 +1,6 @@
 # ISS Module v2.0 - DALS Core Architecture
 
-**Level-3 Tamper-Evident Ledger - Foundation for Digital Asset Ledger System (DALS)**
+**Level-3 Tamper-Evident Ledger - Foundation for Digital Asset Logistics System (DALS)**
 
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
@@ -11,7 +11,7 @@
 
 ## Overview
 
-The ISS Module v2.0 is the **core architecture for the Digital Asset Ledger System (DALS)**, implementing a **Level-3 tamper-evident ledger** that provides enterprise-level traceability for all digital asset operations.
+The ISS Module v2.0 is the **core architecture for the Digital Asset Logistics System (DALS)**, implementing a **Level-3 tamper-evident ledger** that provides enterprise-level traceability for all digital asset operations.
 
 **This Level-3 architecture is mandatory for all DALS subsystems**, replacing previous implementations with guaranteed tamper-evident properties.
 
